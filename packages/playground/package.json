@@ -1,0 +1,30 @@
+{
+  "name": "@nouns/playground",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "^3.10.3",
+    "vue": "^3.4.19",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@mdi/font": "^7.4.47",
+    "@unocss/extractor-pug": "^0.58.5",
+    "@unocss/nuxt": "^0.58.5",
+    "@vue/language-plugin-pug": "^2.0.6",
+    "@vueuse/nuxt": "^10.9.0",
+    "autoprefixer": "^10.4.18",
+    "postcss": "^8.4.35",
+    "pug": "^3.0.2",
+    "vite-plugin-vuetify": "^2.0.2",
+    "vuetify": "^3.5.8"
+  }
+}

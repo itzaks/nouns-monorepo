@@ -45,7 +45,11 @@ export const buildSVG = (
   parts: { data: string }[],
   paletteColors: string[],
   bgColor?: string,
+  drawPixel?: boolean
 ): string => {
+  let pixelColor: string | undefined = undefined
+  let hasDrawnPixel = false
+
   const svgWithoutEndTag = parts.reduce((result, part) => {
     const svgRects: string[] = [];
     const { bounds, rects } = decodeImage(part.data);
@@ -63,10 +67,13 @@ export const buildSVG = (
         // Do not push rect if transparent
         if (colorIndex !== 0) {
           svgRects.push(
-            `<rect width="${length * 10}" height="10" x="${currentX * 10}" y="${
-              currentY * 10
+            `<rect width="${length * 10}" height="10" x="${currentX * 10}" y="${currentY * 10
             }" fill="#${hexColor}" />`,
-          );
+          )
+
+          if (drawPixel && !pixelColor && currentX == 1 && currentY == 24) {
+            pixelColor = hexColor
+          }
         }
 
         currentX += length;
@@ -79,6 +86,15 @@ export const buildSVG = (
         length = getRectLength(currentX, drawLength, bounds.right);
       }
     });
+
+
+    if (drawPixel && pixelColor && !hasDrawnPixel) {
+      svgRects.push(
+        `<rect width="10" height="10" x="40" y="240" fill="#${pixelColor}" />`
+      )
+      hasDrawnPixel = true
+    }
+
     result += svgRects.join('');
     return result;
   }, `<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="${bgColor ? `#${bgColor}` : 'none'}" />`);
