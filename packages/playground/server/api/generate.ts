@@ -28,8 +28,6 @@ export default defineEventHandler(async event => {
     getData(tailgrip, tail),
   ]
 
-  console.log("Wear", wear, wearables[wear - 1])
-
   const svg = buildSVG(RLE_PARTS, palette, "a88ee0", drawPixel);
 
   return {
