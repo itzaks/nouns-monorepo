@@ -7,6 +7,10 @@ import path from 'path';
 
 const DESTINATION = path.join(process.cwd(), 'assets/scripts', 'image-data.json');
 
+function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 /**
  * Read a PNG image file and return a `PngImage` object.
  * @param path The path to the PNG file
@@ -15,6 +19,10 @@ const readPngImage = async (path: string): Promise<PngImage> => {
   const buffer = await fs.readFile(path);
   try {
     const png = PNG.sync.read(buffer);
+
+    if (path.includes("Zombie") || path.includes("Frog")) {
+      console.log("Path encode", path)
+    }
 
     return {
       width: png.width,
@@ -66,7 +74,6 @@ const encode = async () => {
       if (file.match(/\.png$/)) {
         const image = await readPngImage(path.join(folderpath, file));
         encoder.encodeImage(file.replace(/\.png$/, ''), image, folder);
-
       }
     }
   }
@@ -75,6 +82,17 @@ const encode = async () => {
 };
 
 export default defineEventHandler(async event => {
-  encode();
+  try {
+    await encode();
+
+    return {
+      success: true
+    }
+  } catch (err) {
+    return {
+      success: false,
+      error: err
+    }
+  }
 })
 

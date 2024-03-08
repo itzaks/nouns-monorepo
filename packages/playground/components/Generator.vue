@@ -33,20 +33,22 @@ div(flex="~ col")
 
   VStack(mt="3")
     div(grid="~ cols-6" v-if="svgData.length > 3")
-      div(v-html="data" v-for="data in svgData")
+      SvgItem(v-for="data in svgData" :item="data")
 
     div(grid="~ cols-3" v-else)
-      div(v-html="data" v-for="data in svgData")
+      SvgItem(v-for="data in svgData" :item="data")
 
-  div(v-if="false")
+  div(v-if="true")  
     VBtn(@click="onEncode" type="submit" variant="outlined" :loading="loadingEncode") Encode new images
+
 </template>
 
 <script lang="ts" setup>
 import { images } from "~/assets/scripts/image-data.json"
 
 const loading = ref(false)
-const svgData = ref<string[]>([])
+
+const svgData = ref<SVGGeneration[]>([])
 
 const body = ref(0)
 const wear = ref(0)
@@ -54,7 +56,6 @@ const eye = ref(0)
 const tail = ref(0)
 const amount = ref(1)
 
-const bodyWeight = ref(100)
 const wearWeight = ref(100)
 const eyeWeight = ref(100)
 const tailWeight = ref(100)
@@ -74,11 +75,16 @@ const weighted = (n: number): number => {
   return 0
 }
 
+const calculateRandom = (listCount: number, weight: number) => {
+  const n = Math.random() * (listCount - 1)
+  return Math.floor(1 + n) * weighted(weight)
+}
+
 const randomizeNumbers = () => {
   body.value = Math.floor(Math.random() * images.bodies.length)
-  wear.value = Math.floor(Math.random() * images.wearables.length) * weighted(wearWeight.value)
-  eye.value = Math.floor(Math.random() * images.eyes.length) * weighted(eyeWeight.value)
-  tail.value = Math.floor(Math.random() * images.tailgrip.length) * weighted(tailWeight.value)
+  wear.value = calculateRandom(images.wearables.length, wearWeight.value)
+  eye.value = calculateRandom(images.eyes.length, eyeWeight.value)
+  tail.value = calculateRandom(images.tailgrip.length, tailWeight.value)
 }
 
 const onRandomize = async () => {
@@ -97,8 +103,9 @@ const onGenerate = async () => {
   svgData.value = [svg]
 }
 
-const generateSVG = async (): Promise<string> => {
+const generateSVG = async (): Promise<SVGGeneration> => {
   loading.value = true
+
   const data = await $fetch('/api/generate', {
     method: 'post',
     body: {
@@ -109,7 +116,15 @@ const generateSVG = async (): Promise<string> => {
       drawPixel: drawPixel.value
     }
   })
+
   loading.value = false
-  return data.svg
+
+  return {
+    body: body.value,
+    eye: eye.value,
+    wear: wear.value,
+    tail: tail.value,
+    code: data.svg
+  }
 }
 </script>
