@@ -79,10 +79,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "yarn i18n:compile && react-scripts build",
+    "build": "",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "yarn i18n:compile",
+    "prepare": "",
     "i18n:extract": "lingui extract",
     "i18n:compile": "lingui compile",
     "i18n:pseudo": "lingui extract --locale pseudo && lingui compile"

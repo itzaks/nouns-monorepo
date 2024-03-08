@@ -1,6 +1,7 @@
 {
   "name": "@nouns/sdk",
   "version": "0.4.0",
+  "private": true,
   "description": "Useful tooling for interacting with the Nouns protocol",
   "author": "Nounders",
   "homepage": "https://nouns.wtf",
