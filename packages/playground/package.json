@@ -19,6 +19,7 @@
     "@mdi/font": "^7.4.47",
     "@unocss/extractor-pug": "^0.58.5",
     "@unocss/nuxt": "^0.58.5",
+    "@nouns/sdk": "*",
     "@vue/language-plugin-pug": "^2.0.6",
     "@vueuse/nuxt": "^10.9.0",
     "autoprefixer": "^10.4.18",
