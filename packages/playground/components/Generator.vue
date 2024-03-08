@@ -1,6 +1,6 @@
 <template lang="pug">
 div(flex="~ col")
-  VForm(@submit.prevent="onGenerate" method="post" model-value="")
+  VForm(@submit.prevent="onGenerate" method="post")
     div(flex="~ row" space-x="3")
       div(w="full"): VTextField(label="Body" type="number" v-model="body" variant="outlined" density="compact")
       div(w="full"): VTextField(label="Wear" type="number" v-model="wear" variant="outlined" density="compact")

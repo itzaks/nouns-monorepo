@@ -3,18 +3,7 @@
   "extends": "./.nuxt/tsconfig.json",
   "vueCompilerOptions": {
     "plugins": [
-      // "@volar/vue-language-plugin-pug",
       "@vue/language-plugin-pug"
     ]
-  },
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "noImplicitAny": false
-  },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "ES6"
-    }
   }
 }
