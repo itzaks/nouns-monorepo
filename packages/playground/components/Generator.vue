@@ -38,7 +38,7 @@ div(flex="~ col")
     div(grid="~ cols-3" v-else)
       SvgItem(v-for="data in svgData" :item="data")
 
-  div(v-if="false")  
+  div(v-if="true")  
     VBtn(@click="onEncode" type="submit" variant="outlined" :loading="loadingEncode") Encode new images
 
 </template>
