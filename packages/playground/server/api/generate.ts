@@ -28,7 +28,7 @@ export default defineEventHandler(async event => {
     getData(tailgrip, tail),
   ]
 
-  const svg = buildSVG(RLE_PARTS, palette, "a88ee0", drawPixel);
+  const svg = buildSVG(RLE_PARTS, palette, "C1A2EB", drawPixel);
 
   return {
     svg
